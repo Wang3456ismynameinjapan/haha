@@ -1,12 +1,13 @@
-#!/bin/bash -xve
-#Written by WANG3456
-install:
-	cp setup.bash /ect/init.d/raspimouse
-	chmod +x /etc/init.d/raspimouse
-	update-rc.d raspimouse defaults
+#!bin/bash -xve 
 
-uninstall:
-	update-rc.d raspimouse remove
-	rm /ect/init.d/raspimouse
+exec 2> /tmp/setup.log
+
+cd /home/ubuntu/RaspberryPiMouse/src/drivers/
+/sbin/insmod rtmouse.ko
+
+sleep 1
+chmod 666 /dev/rt*
+
+echo 0 > /dev/motoren0
 
 
